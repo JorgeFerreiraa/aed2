@@ -4,7 +4,7 @@ import java.util.List;
  *Classe que representa o Autor
  */
 public class Autor {
-    private int id;
+    private static int id = 0;
     private String nome;
     private String nomeCurto;
     private String filiacao;
@@ -31,6 +31,7 @@ public class Autor {
     public Autor(String nome, String nomeCurto, String filiacao, String ORCID,
                  String cienciaID, String googleScholarID, String scopusAuthorID,
                  List<String> areasInvestigacao, String formacao) {
+        this.id = id++;
         this.nome = nome;
         this.nomeCurto = nomeCurto;
         this.filiacao = filiacao;
@@ -42,6 +43,8 @@ public class Autor {
         this.formacao = formacao;
         this.historicoArtigos = new ArrayList<>();
     }
+
+
 
     /**
      * Obtém o nome do autor
@@ -167,14 +170,18 @@ public class Autor {
     }
 
 
-
-
-    // Método para adicionar artigo ao histórico de artigos do autor
+    /**
+     * Metodo para adicionar artigo ao histórico de artigos do autor
+     * @param artigo
+     */
     public void adicionarArtigo(Artigo artigo) {
         historicoArtigos.add(artigo);
     }
 
-    // Método para remover artigo do histórico de artigos do autor
+    /**
+     * Metodo para remover artigo do historico de artigos do autor
+     * @param artigo
+     */
     public void removerArtigo(Artigo artigo) {
         historicoArtigos.remove(artigo);
     }

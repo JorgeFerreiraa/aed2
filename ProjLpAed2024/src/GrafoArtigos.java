@@ -1,5 +1,5 @@
 import edu.princeton.cs.algs4.*;
-
+import edu.princeton.cs.algs4.Queue;
 import java.util.*;
 
 public class GrafoArtigos {
@@ -12,14 +12,72 @@ public class GrafoArtigos {
        digraph = new Digraph(0);
    }
 
-   public void addVertex(Artigo artigo) {
+    /**
+     * Metódo para adicionar novos vertices
+     * @param artigo
+     */
+    public void addVertex(Artigo artigo) {
         if (!idDoArtigo.containsKey(artigo.getId())) {
             int index = digraph.V();
             idDoArtigo.put(artigo.getId(), artigo);
-            digraph = new Digraph(index + 1); // Incrementa o número de vértices
+            Digraph novoDigraph = new Digraph(index + 1);
+            for (int v = 0; v < index; v++) {
+                for (int w : digraph.adj(v)) {
+                    novoDigraph.addEdge(v, w);
+                }
+            }
+            digraph = novoDigraph;
         }
     }
 
+    /**
+     * Metodo para calcular o caminho mais curto entre artigos
+     * @param artigofrom
+     * @param artigoto
+     * @return
+     */
+    public List<Artigo> shortestPath(Artigo artigofrom, Artigo artigoto) {
+
+        int from = artigofrom.getId();
+        int to = artigoto.getId();
+        Queue<Integer> queue = new Queue<>();
+        ST<Integer, Integer> parent = new ST<>();
+        boolean[] visited = new boolean[digraph.V()];
+
+        queue.enqueue(from);
+        visited[from] = true;
+
+        while (!queue.isEmpty()) {
+            int current = queue.dequeue();
+            if (current == to) {
+                break;
+            }
+            for (int neighbor : digraph.adj(current)) {
+                if (!visited[neighbor]) {
+                    queue.enqueue(neighbor);
+                    visited[neighbor] = true;
+                    parent.put(neighbor, current);
+                }
+            }
+        }
+
+
+        List<Artigo> path = new ArrayList<>();
+        int current = to;
+        while (parent.contains(current)) {
+            path.add(idDoArtigo.get(current));
+            current = parent.get(current);
+        }
+        path.add(idDoArtigo.get(from));
+        Collections.reverse(path);
+
+        return path;
+    }
+    /**
+     * Metodo para adicionar edges
+     * @param fromId
+     * @param toId
+     */
     public void addEdge(int fromId, int toId) {
         Artigo fromArtigo = idDoArtigo.get(fromId);
         Artigo toArtigo = idDoArtigo.get(toId);
@@ -40,7 +98,10 @@ public class GrafoArtigos {
     }
 
 
-
+    /**
+     * Metodo para returnar o digraph
+     * @return diagraph
+     */
     public Digraph getDigraph() {
         return digraph;
     }
@@ -86,7 +147,7 @@ public class GrafoArtigos {
         }
 
         for (int citado : primeiraOrdem){
-            count += calcularCitacoesSegundaOrdem(citado);
+            count += calcularCitacoesPrimeiraOrdem(citado);
         }
         return count;
     }
@@ -134,7 +195,7 @@ public class GrafoArtigos {
      */
     public boolean isConnected() {
         boolean[] visitado = new boolean[digraph.V()];
-        int v = 0; // Vértice inicial arbitrário
+        int v = 0;
 
         dfs(v, visitado);
 

@@ -6,7 +6,7 @@ import java.util.Date;
  */
 
 public class Artigo {
-    private int id;
+    private static int id = 0;
     private String titulo;
     private ArrayList<String> palavrasChave;
     private String tipoPublicacao;
@@ -21,7 +21,6 @@ public class Artigo {
 
     /**
      * Construtor para criar um novo objeto artigo
-     * @param id Id do artigo
      * @param titulo Titulo do artigo
      * @param palavrasChave palavras chaves do artigo
      * @param tipoPublicacao Tipo de publicação do artigo
@@ -34,8 +33,8 @@ public class Artigo {
      * @param conferencia Conferencia do artigo
      * @param journal Journal do artigo
      */
-    public Artigo(int id, String titulo, ArrayList<String> palavrasChave, String tipoPublicacao, Date data, int numDownloads, int numVisualizacoes, int numLikes, ArrayList<Autor> autores, ArrayList<Artigo> referencias, Conferencia conferencia, Journal journal) {
-        this.id = id;
+    public Artigo(String titulo, ArrayList<String> palavrasChave, String tipoPublicacao, Date data, int numDownloads, int numVisualizacoes, int numLikes, ArrayList<Autor> autores, ArrayList<Artigo> referencias, Conferencia conferencia, Journal journal) {
+        this.id = id++;
         this.titulo = titulo;
         this.palavrasChave = palavrasChave;
         this.tipoPublicacao = tipoPublicacao;

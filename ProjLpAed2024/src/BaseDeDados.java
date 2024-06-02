@@ -35,10 +35,10 @@ public class BaseDeDados {
 
     /**
      * Remoção do artigo pelo titulo
-     * @param titulo
+     * @param id
      */
-    public void removerArtigo(String titulo) {
-        artigos.remove(titulo);
+    public void removerArtigo(int id) {
+        artigos.remove(id);
     }
 
     /**
@@ -60,19 +60,14 @@ public class BaseDeDados {
     }
 
     /**
-     * Remoção do autor pelo nome
-     * @param nome
+     * Remoção do autor
+     * @param id
      */
-    public void removerAutor(String nome) {
-        Autor autorRemovido = autores.remove(nome);
-        if (autorRemovido != null) {
-            autoresRemovidos.add(nome);
-            // Arquivar informações necessárias do autor removido
-            // Por exemplo, manter apenas uma string com o nome curto/científico do autor
-            // e arquivá-lo em ficheiros ou estruturas auxiliares
-            // ...
+    public void removerAutor(int id) {
+        autores.remove(id);
+
         }
-    }
+
 
     /**
      * Pequisar autor pelo nome
@@ -89,7 +84,6 @@ public class BaseDeDados {
      * @return boolean
      */
     public boolean validarReferenciasAutores() {
-        // Validar consistência das referências para autores
         for (Artigo artigo : artigos.values()) {
             for (Autor autor : artigo.getAutores()) {
                 if (!autores.containsKey(autor.getNome()) && !autoresRemovidos.contains(autor.getNome())) {
@@ -384,16 +378,16 @@ public class BaseDeDados {
 
     /**
      * Função que calcula o número de citações a outros artigos dos mesmos autores
-     * @param artigoId
+     * @param artigorecebido
      * @return
      */
-    public int calcularAutoCitacao(int artigoId){
+    public int calcularAutoCitacao(Artigo artigorecebido){
         int cont = 0;
 
-        ArrayList<Autor> autoresArtigo = grafo.getArtigo(artigoId).getAutores();
+        ArrayList<Autor> autoresArtigo = grafo.getArtigo(artigorecebido.getId()).getAutores();
 
         for (int v = 0; v < grafo.numeroVertices(); v++) {
-            if (v != artigoId){
+            if (v != artigorecebido.getId()){
                 ArrayList<Autor> autoresArtigoComparar = grafo.getArtigo(v).getAutores();;
                 if (contemAutores(autoresArtigo,autoresArtigoComparar)){
                     for (int w : grafo.getAdjacentVertices(v)){
