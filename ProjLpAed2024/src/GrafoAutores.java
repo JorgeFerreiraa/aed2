@@ -64,18 +64,23 @@ public class GrafoAutores {
         return grafo.degree(idAutor);
     }
 
-/**
-    public int calcularNumeroArtigosEntreAutores(Autor autor1, Autor autor2) {
+    /**
+
+     Calcula o número de artigos escritos em colaboração entre dois autores.*
+     @param autor1 O primeiro autor.
+     @param autor2 O segundo autor.
+     @return O número de artigos escritos em colaboração entre os dois autores.
+     */
+    public int calcularNumeroArtigosEntreAutores(Autor autor1, Autor autor2) {// Encontra os índices dos autores no ArrayList de autores
         int idAutor1 = autores.indexOf(autor1);
         int idAutor2 = autores.indexOf(autor2);
         int numArtigos = 0;
 
-        // Verifica se existe uma colaboração entre os dois autores
-        if (grafo.hasEdge(idAutor1, idAutor2)) {
-            // Procura atributos de colaborações entre os dois autores
-            for (int i = 0; i < grafo.E(); i++) {
-                if ((grafo.edge(i).either() == idAutor1 && grafo.edge(i).other() == idAutor2) ||
-                        (grafo.edge(i).either() == idAutor2 && grafo.edge(i).other() == idAutor1)) {
+        // Percorre todas as arestas do grafo
+        for (int v = 0; v < grafo.V(); v++) {
+            for (int w : grafo.adj(v)) {
+                // Verifica se os dois autores são extremidades da aresta
+                if ((v == idAutor1 && w == idAutor2) || (v == idAutor2 && w == idAutor1)) {
                     numArtigos++;
                 }
             }
@@ -83,7 +88,6 @@ public class GrafoAutores {
 
         return numArtigos;
     }
-*/
 
 
     /**
@@ -137,29 +141,21 @@ public class GrafoAutores {
      * @return subgrafo de autores
      */
 
-    public GrafoAutores selecionarSubgrafoPorInstituicoes(String instituicao) {
+    public GrafoAutores selecionarSubgrafoPorInstituicoes(ArrayList<String> instituicao) {
         GrafoAutores subgrafo = new GrafoAutores(autores.size());
 
         for (Autor autor : autores) {
-            if (autor.getCienciaID().equals(instituicao) || autor.getGoogleScholarID().equals(instituicao) || autor.getORCID().equals(instituicao)) {
-                {
-                    subgrafo.adicionarAutor(autor);
-                }
-            }
-
-            // Adiciona as colaborações ao subgrafo
-            for (int i = 0; i < grafo.V(); i++) {
-                for (int adjacente : grafo.adj(i)) {
-                    // if (subgrafo.autores.contains(autores.get(i)) && subgrafo.autores.contains(autores.get(adjacente))) {
-                    // subgrafo.adicionarColaboracao(i, adjacente, atributosColaboracao.get(grafo.findEdge(i, adjacente)));
-                    // }
-                }
+            if (instituicao.contains(autor.getCienciaID()) || instituicao.contains(autor.getGoogleScholarID()) || instituicao.contains(autor.getORCID())) {
+                subgrafo.adicionarAutor(autor);
             }
         }
         return subgrafo;
     }
 
-
+    /**
+     * Metodo para verificar se o grafo é conexo
+     * @return boolean
+     */
     public boolean verificarConexo() {
         boolean[] visitado = new boolean[grafo.V()];
 
