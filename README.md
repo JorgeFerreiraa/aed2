@@ -53,5 +53,5 @@ This project allowed me to:
 
 📫 Contact
 
-GitHub: [Your Username](https://github.com/JorgeFerreiraa)
-LinkedIn: [Your Profile](https://www.linkedin.com/in/jorge-ferreira-015668311/)
+GitHub: [Jorge Ferreira](https://github.com/JorgeFerreiraa)
+LinkedIn: [Jorge Ferreira](https://www.linkedin.com/in/jorge-ferreira-015668311/)
