@@ -29,15 +29,15 @@ The system provides functionalities for **inserting, removing, searching, and va
 ---
 
 ## 📂 Project Structure
-📦 src
-┣ 📜 Artigo.java # Artigoclass
-┣ 📜 Autor.java # Autor class
-┣ 📜 BaseDeDados.java # Core database management class
-┣ 📜 Conferencia.java # Conferencia class
-┣ 📜 GrafoArtigos.java # Grafoartigos class
-┣ 📜 Journal.java # Journal class
-┣ 📜 Main.java # Main application and test methods
-┣ 📜 Publicacao.java # Publicacao class
+📦 src <br>
+┣ 📜 Artigo.java # Artigoclass <br>
+┣ 📜 Autor.java # Autor class <br>
+┣ 📜 BaseDeDados.java # Core database management class <br>
+┣ 📜 Conferencia.java # Conferencia class <br>
+┣ 📜 GrafoArtigos.java # Grafoartigos class <br>
+┣ 📜 Journal.java # Journal class <br>
+┣ 📜 Main.java # Main application and test methods <br>
+┣ 📜 Publicacao.java # Publicacao class <br>
 
 ---
 
